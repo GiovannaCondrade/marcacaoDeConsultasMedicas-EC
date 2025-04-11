@@ -1,10 +1,10 @@
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React from 'react';
-import styled from 'styled-components/native';
 import { FlatList } from 'react-native';
 import { Button } from 'react-native-elements';
+import styled from 'styled-components/native';
 import { HeaderContainer, HeaderTitle } from '../components/Header';
 import theme from '../styles/theme';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 type RootStackParamList = {
   Home: undefined;
@@ -26,7 +26,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
       </HeaderContainer>
 
       <Content>
-        <Button 
+        <Button
           title="Agendar Nova Consulta"
           icon={{
             name: 'calendar-plus',
@@ -44,8 +44,8 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
 
         <AppointmentList
           data={appointments}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
+          keyExtractor={(item: { id: any; }) => item.id}
+          renderItem={({ item }: any) => (
             <AppointmentCard>
               <DoctorImage source={{ uri: item.doctor.image }} />
               <InfoContainer>
