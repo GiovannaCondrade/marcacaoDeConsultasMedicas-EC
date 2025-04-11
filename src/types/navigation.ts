@@ -1,5 +1,5 @@
 export type RootStackParamList = {
-  Home: undefined;
-  CreateAppointment: undefined;
-  Profile: undefined;
+    Home: undefined;
+    CreateAppointment: undefined;
+    Profile: undefined;
 };

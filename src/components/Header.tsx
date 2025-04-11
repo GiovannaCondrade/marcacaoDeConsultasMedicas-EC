@@ -1,5 +1,5 @@
-import styled from 'styled-components/native';
 import { StatusBar } from 'react-native';
+import styled from 'styled-components/native';
 import theme from '../styles/theme';
 
 export const HeaderContainer = styled.View`
