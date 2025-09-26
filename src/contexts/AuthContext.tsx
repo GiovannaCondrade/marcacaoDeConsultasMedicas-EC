@@ -46,9 +46,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const response = await authApiService.signIn(credentials);
       setUser(response.user);
       
-      // Configura o token no cliente da API
-      apiClient.setToken(response.token);
-      
       // Salva os dados no AsyncStorage para persistência
       await AsyncStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(response.user));
       await AsyncStorage.setItem(STORAGE_KEYS.TOKEN, response.token);
@@ -61,9 +58,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       const response = await authApiService.register(data);
       setUser(response.user);
-      
-      // Configura o token no cliente da API
-      apiClient.setToken(response.token);
       
       // Salva os dados no AsyncStorage para persistência
       await AsyncStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(response.user));

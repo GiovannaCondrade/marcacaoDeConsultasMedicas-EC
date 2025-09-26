@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import styled from 'styled-components/native';
 import { Input, Button, Text } from 'react-native-elements';
-import { useAuth } from '../contexts/AuthContext';
-import theme from '../styles/theme';
 import { ViewStyle } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../types/navigation';
+import { Container, Title } from '../LoginScreen/styles';
+import { ErrorText, SectionTitle, styles, UserTypeButton, UserTypeContainer, UserTypeText } from './styles';
+import { RootStackParamList } from '../../types/navigation';
+import { useAuth } from '../../contexts/AuthContext';
 
 type RegisterScreenProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'Register'>;
@@ -18,6 +18,7 @@ const RegisterScreen: React.FC = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [userType, setUserType] = useState<'PACIENTE' | 'ADMIN'>('PACIENTE');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -35,6 +36,7 @@ const RegisterScreen: React.FC = () => {
         name,
         email,
         password,
+        userType,
       });
 
       // Após o registro bem-sucedido, navega para o login
@@ -48,7 +50,7 @@ const RegisterScreen: React.FC = () => {
 
   return (
     <Container>
-      <Title>Cadastro de Paciente</Title>
+      <Title>Cadastro de Usuário</Title>
       
       <Input
         placeholder="Nome completo"
@@ -75,6 +77,27 @@ const RegisterScreen: React.FC = () => {
         containerStyle={styles.input}
       />
 
+      <SectionTitle>Tipo de Usuário</SectionTitle>
+      <UserTypeContainer>
+        <UserTypeButton 
+          selected={userType === 'PACIENTE'}
+          onPress={() => setUserType('PACIENTE')}
+        >
+          <UserTypeText selected={userType === 'PACIENTE'}>
+            👤 Paciente
+          </UserTypeText>
+        </UserTypeButton>
+        
+        <UserTypeButton 
+          selected={userType === 'ADMIN'}
+          onPress={() => setUserType('ADMIN')}
+        >
+          <UserTypeText selected={userType === 'ADMIN'}>
+            🔧 Administrador
+          </UserTypeText>
+        </UserTypeButton>
+      </UserTypeContainer>
+
       {error ? <ErrorText>{error}</ErrorText> : null}
 
       <Button
@@ -95,47 +118,6 @@ const RegisterScreen: React.FC = () => {
   );
 };
 
-const styles = {
-  input: {
-    marginBottom: 15,
-  },
-  button: {
-    marginTop: 10,
-    width: '100%',
-  },
-  buttonStyle: {
-    backgroundColor: theme.colors.primary,
-    paddingVertical: 12,
-  },
-  backButton: {
-    marginTop: 10,
-    width: '100%',
-  },
-  backButtonStyle: {
-    backgroundColor: theme.colors.secondary,
-    paddingVertical: 12,
-  },
-};
 
-const Container = styled.View`
-  flex: 1;
-  padding: 20px;
-  justify-content: center;
-  background-color: ${theme.colors.background};
-`;
-
-const Title = styled.Text`
-  font-size: 24px;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 30px;
-  color: ${theme.colors.text};
-`;
-
-const ErrorText = styled.Text`
-  color: ${theme.colors.error};
-  text-align: center;
-  margin-bottom: 10px;
-`;
 
 export default RegisterScreen; 
